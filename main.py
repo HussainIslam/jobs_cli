@@ -11,7 +11,8 @@ for jobs in results:
     job_title = jobs.find('h2', class_='title').a['title']
     company_name = jobs.find('div', class_='sjcl').div.find('span', class_='company')
     if company_name.a:
-        company_name = company_name.a.getText()
+        company_name = company_name.a.getText()[1:]
     else:
-        company_name = company_name.getText()
-    print(f'{job_title}: company_name')
+        company_name = company_name.getText()[1:]
+        
+    print(f'{job_title}: {company_name}')
