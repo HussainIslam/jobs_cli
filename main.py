@@ -42,7 +42,7 @@ if __name__ == "__main__":
     for job in results:
         job_header = job.find('h2', class_='title').a 
         job_title = job_header['title']
-        job_href = 'https://ca.indeed.com' +job_header['href']
+        job_posting_link = 'https://ca.indeed.com' +job_header['href']
         job_date = date.today().strftime("%d-%m-%Y")
         headers={
             "referer": URL,
@@ -52,22 +52,17 @@ if __name__ == "__main__":
             'Access-Control-Max-Age': '3600',
             'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0'
         }
-        try:
-            posting = requests.get(job_href, headers=headers)
-        except Exception as e:
-            print(e)
-        company_name = job.find('div', class_='sjcl').div.find('span', class_='company')
-        if company_name.a:
-            company_name = company_name.a.getText()[1:]
+        job_company = job.find('div', class_='sjcl').div.find('span', class_='company')
+        if job_company.a:
+            job_company = job_company.a.getText()[1:]
         else:
-            company_name = company_name.getText()[1:]
+            job_company = job_company.getText()[1:]
         
         job_location = job.find('div', class_='sjcl').select_one('.location').getText()
-        #if not job_location:
-        #    job_location = job.find('div', class_='sjcl').find('div', class_='location')
-        #job_location = job_location.getText()
+        
+        job_posting = JobPosting(job_title, job_company, job_posting_link, job_date, job_location)
             
-        print(f'{counter}: {job_title} - {company_name} ({job_location})')
+        print(job_posting)
         # if company_name == 'Procom':
         #     print(job_location)
         counter+=1
