@@ -1,44 +1,22 @@
 from datetime import date
 from bs4 import BeautifulSoup
-from selenium import webdriver
 from lxml import html
 import requests
 
-class JobPosting(object):
-    """
-    docstring
-    """
-    def __init__(self, position, company, post_link, date, location):
-        self.position = position
-        self.company = company
-        self.post_link = post_link
-        self.date = date
-        self.location = location
+from JobPostings.indeed import IndeedPosting
+from Support.selenium_utils import Browser
 
-    def __str__(self):
-        return f'{self.company} - {self.position}'
-
-class Browser(object):
-    """
-    """
-    def __init__(self, webdriver_location):
-        self.webdriver_location = webdriver_location
-        options = webdriver.ChromeOptions()
-        options.add_argument('--ignore-certificate-errors')
-        options.add_argument('--incognito')
-        options.add_argument('--headless')
-        self.browser = webdriver.Chrome(webdriver_location, chrome_options=options)
 
 
 if __name__ == "__main__":
     browser = Browser("/usr/lib/chromium-browser/chromedriver").browser
+    new_jobs = list()
 
     URL = 'https://ca.indeed.com/jobs?q=full+stack+developer&l=Scarborough%2C+ON&fromage=1'
     browser.get(URL)
     page = browser.page_source
     soup = BeautifulSoup(page, 'html.parser')
     results = soup.findAll('div', class_='jobsearch-SerpJobCard')
-    counter = 0
     for job in results:
         job_header = job.find('h2', class_='title').a 
         job_title = job_header['title']
@@ -59,10 +37,5 @@ if __name__ == "__main__":
             job_company = job_company.getText()[1:]
         
         job_location = job.find('div', class_='sjcl').select_one('.location').getText()
-        
-        job_posting = JobPosting(job_title, job_company, job_posting_link, job_date, job_location)
-            
-        print(job_posting)
-        # if company_name == 'Procom':
-        #     print(job_location)
-        counter+=1
+        new_jobs.append(IndeedPosting(job_title, job_company, job_posting_link, job_date, job_location))
+    [print(job) for job in new_jobs]
