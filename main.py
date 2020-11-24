@@ -11,12 +11,23 @@ counter = 0
 for jobs in results:
     job_header = jobs.find('h2', class_='title').a 
     job_title = job_header['title']
-    job_url = 'https://ca.indeed.ca/' +job_header['href']
+    job_href = 'https://ca.indeed.com' +job_header['href']
+    headers={
+        "referer": URL,
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Max-Age': '3600',
+        'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0'
+    }
+    try:
+        posting = requests.get(job_href, headers=headers)
+    except Exception as e:
+        print(e)
     company_name = jobs.find('div', class_='sjcl').div.find('span', class_='company')
     if company_name.a:
         company_name = company_name.a.getText()[1:]
     else:
         company_name = company_name.getText()[1:]
     print(f'{counter}: {job_title} - {company_name}')
-    print(job_url)
     counter+=1
