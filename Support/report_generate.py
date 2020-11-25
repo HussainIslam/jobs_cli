@@ -1,3 +1,6 @@
+import os
+from datetime import date
+
 class ReportTextFile(object):
     """
     docstring
@@ -7,5 +10,7 @@ class ReportTextFile(object):
         docstring
         """
         self.job_postings = job_postings
-        output_file = open("Reports/postings.txt", "a+")
+        location = os.getcwd()
+        filename = f'job_postings_{date.today().strftime("%d_%m_%Y")}'
+        output_file = open(f'./Reports/{filename}', "a+")
         [ output_file.write(str(job) + "\n") for job in self.job_postings ]
