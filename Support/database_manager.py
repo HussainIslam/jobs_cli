@@ -37,5 +37,25 @@ class DBM:
             print("[ Success ] Database table 'jobs' was created.")
         except Exception as e:
             print(f"[ Error ] {e}")
+
+    def delete_jobs_table(self):
+        db_cursor = self.con.cursor()
+        query_string = "DROP TABLE jobs"
+        try:
+            db_cursor.execute(query_string)
+            self.con.commit()
+            print("[ Success ] jobs table have been deleted")
+        except Exception as e:
+            print(f"[ Error ] {e}")
+
+    def remove_all_data(self):
+        db_cursor = self.con.cursor()
+        query_string = "DELETE FROM jobs"
+        try:
+            db_cursor.execute(query_string)
+            self.con.commit()
+            print("[ Success ] Cleared all data from the table 'jobs'")
+        except Exception as e:
+            print(f"[ Error ] {e}")
         
         

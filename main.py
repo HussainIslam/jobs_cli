@@ -11,5 +11,8 @@ if __name__ == "__main__":
     browser = Browser("/usr/lib/chromium-browser/chromedriver").browser
     new_jobs = list()
     dm = DataManager(browser, new_jobs)
-    db = DBM().create_jobs_table()
+    db = DBM()
+    db.create_jobs_table()
+    #db.delete_jobs_table()
+    
     ReportTextFile(new_jobs)
