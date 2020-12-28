@@ -26,7 +26,7 @@ class DBM:
             province text NOT NULL,
             posting_site text NOT NULL,
             search_position text NOT NULL,
-            job_ur BLOB NOT NULL,
+            job_url BLOB NOT NULL,
             posting_date text NOT NULL DEFAULT CURRENT_DATE,
             access_date text NOT NULL
         )
