@@ -17,7 +17,7 @@ class DataManager(object):
         self.fetch_data()
 
     def fetch_data(self):
-        URL = 'https://ca.indeed.com/jobs?q=full+stack+developer&l=Scarborough%2C+ON&fromage=1'
+        URL = 'https://ca.indeed.com/jobs?q=full+stack+developer&l=Scarborough%2C+ON'
         self.browser.get(URL)
         page = self.browser.page_source
         soup = BeautifulSoup(page, 'html.parser')
