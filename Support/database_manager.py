@@ -78,7 +78,20 @@ class DBM:
                     province, posting_site, search_position, 
                     job_url, posting_date, access_date)
 
-        query_string = "INSERT INTO jobs values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,)"
-        db_cursor.execute(query_string, all_data)
-        self.con.commit()
-        
+        query_string = """INSERT INTO jobs 
+        (company_name, posting_position, posting_number, contact_email, contact_phone,
+        city, province, posting_site, search_position, job_url, posting_date, access_date) 
+        values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"""
+        try:
+            db_cursor.execute(query_string, all_data)
+            self.con.commit()
+        except Exception as e:
+            print(e)
+
+    def insert_multi_posting(self, postings:list, search_query):
+        try:
+            for posting in postings:
+                self.insert_posting(posting, search_query)
+            print("[ Success ] All job postings were inserted into database.")
+        except Exception as e:
+            print(e)
