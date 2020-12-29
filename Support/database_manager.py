@@ -1,4 +1,5 @@
 import sqlite3
+from datetime import date
 
 class DBM:
 
@@ -58,4 +59,26 @@ class DBM:
         except Exception as e:
             print(f"[ Error ] {e}")
     
+    def insert_posting(self, posting, search_query):
+        db_cursor = self.con.cursor()
+        company_name = posting.company_name
+        posting_position = posting.position
+        posting_number = posting.posting_number
+        contact_email = posting.contact_email
+        contact_phone = posting.contact_phone
+        city = posting.city
+        province = posting.province
+        posting_site = posting.posting_site
+        search_position = search_query
+        job_url = posting.job_url
+        posting_date = posting.posting_date
+        access_date = date.today()
+        all_data = (company_name, posting_position, posting_number, 
+                    contact_email, contact_phone, city, 
+                    province, posting_site, search_position, 
+                    job_url, posting_date, access_date)
+
+        query_string = "INSERT INTO jobs values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,)"
+        db_cursor.execute(query_string, all_data)
+        self.con.commit()
         
