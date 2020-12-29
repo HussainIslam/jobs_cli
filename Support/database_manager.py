@@ -57,5 +57,5 @@ class DBM:
             print("[ Success ] Cleared all data from the table 'jobs'")
         except Exception as e:
             print(f"[ Error ] {e}")
-        
+    
         

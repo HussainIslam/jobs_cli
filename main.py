@@ -14,5 +14,6 @@ if __name__ == "__main__":
     db = DBM()
     db.create_jobs_table()
     #db.delete_jobs_table()
+    print(len(new_jobs))
     
     #ReportTextFile(new_jobs)

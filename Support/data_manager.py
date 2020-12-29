@@ -20,7 +20,7 @@ class DataManager(object):
         """
         docstring
         """
-        pass
+        self.scrap_indeed()
     
     def get_data(self):
         """
@@ -67,17 +67,20 @@ class DataManager(object):
             # scrapping contact_phone
             contact_phone = None
 
-            # scrapping city
+            # Scrapping city and province
+            job_location = job.find('div', class_='sjcl').select_one('.location').getText()
             city = None
-
-            # scrapping province
             province = None
+            comma_position = job_location.find(",")
+            if comma_position > -1:
+                city = job_location[:comma_position]
+                province = job_location[comma_position+1:].strip()
 
             # posting_site
             posting_site = "indeed"
 
             # scrapping job_url
-            job_posting_link = 'https://ca.indeed.com' +job_header['href']
+            job_url = 'https://ca.indeed.com' +job_header['href']
             
             # scrapping posting_date
             job_date = date.today().strftime("%d-%m-%Y")
@@ -91,6 +94,8 @@ class DataManager(object):
                 'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0'
             }
             
-            job_location = job.find('div', class_='sjcl').select_one('.location').getText()
+            new_job = Posting(job_company, position, position_number, contact_email, contact_phone, city, province, posting_site, job_url, job_date)
+            self.new_jobs.append(new_job)
+            
 
             #self.new_jobs.append(Posting(job_title, job_company, job_posting_link, job_date, job_location))

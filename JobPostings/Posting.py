@@ -2,7 +2,7 @@ class Posting:
 
     def __init__(self, company_name, 
                         position, 
-                        position_number, 
+                        posting_number, 
                         contact_email,
                         contact_phone,
                         city,
