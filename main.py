@@ -15,4 +15,4 @@ if __name__ == "__main__":
     db.create_jobs_table()
     #db.delete_jobs_table()
     
-    ReportTextFile(new_jobs)
+    #ReportTextFile(new_jobs)

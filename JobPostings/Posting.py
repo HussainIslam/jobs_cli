@@ -1,46 +1,26 @@
-from abc import ABC, abstractproperty
+class Posting:
 
-class Posting(ABC):
-    
-    @abstractproperty
-    def company_name(self):
-        pass
+    def __init__(self, company_name, 
+                        position, 
+                        position_number, 
+                        contact_email,
+                        contact_phone,
+                        city,
+                        province,
+                        posting_site,
+                        job_url,
+                        posting_date):
+        self.company_name = company_name
+        self.position = position
+        self.posting_number = posting_number
+        self.contact_email = contact_email
+        self.contact_phone = contact_phone
+        self.city = city
+        self.province = province
+        self.posting_site = posting_site
+        self.job_url = job_url
+        self.posting_date = posting_date
 
-    @abstractproperty
-    def position(self):
-        pass
-
-    @abstractproperty
-    def posting_number(self):
-        pass
-
-    @abstractproperty
-    def contact_email(self):
-        pass
-
-    @abstractproperty
-    def contact_phone(self):
-        pass
-
-    @abstractproperty
-    def city(self):
-        pass
-
-    @abstractproperty
-    def province(self):
-        pass
-
-    @abstractproperty
-    def posting_site(self):
-        pass
-
-    @abstractproperty
-    def job_url(self):
-        pass
-
-    @abstractproperty
-    def posting_date(self):
-        pass
-
-    
+    def __str__(self):
+        return f'{self.company_name} - {self.position}'
 
