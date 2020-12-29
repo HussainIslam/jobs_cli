@@ -10,6 +10,7 @@ selenium = "*"
 lxml = "*"
 requests = "*"
 bs4 = "*"
+chromedriver-binary-auto = "*"
 
 [requires]
 python_version = "3.7"
